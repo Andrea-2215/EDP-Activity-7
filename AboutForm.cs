@@ -20,7 +20,7 @@ namespace ClothingStoreIS
             MaximizeBox = false;
             Font = AppTheme.FontBody;
 
-            // ── Pink header band ──────────────────────────────────────────────
+          
             var header = new Panel
             {
                 Dock = DockStyle.Top,
@@ -52,7 +52,6 @@ namespace ClothingStoreIS
             };
             header.Controls.Add(lblAppName);
 
-            // ── Body content ──────────────────────────────────────────────────
             int y = 148;
 
             AddSection("Version", "1.0.0  (May 2026)", ref y);
@@ -71,7 +70,7 @@ namespace ClothingStoreIS
             AddSection("Developer", "ANDREA / CUTE", ref y);
             AddSection("Institution", "BICOL UNIVERSITY", ref y);
 
-            // ── Divider ───────────────────────────────────────────────────────
+           
             var div = new Panel
             {
                 Location = new Point(40, y + 6),
@@ -80,7 +79,7 @@ namespace ClothingStoreIS
             };
             Controls.Add(div);
 
-            // ── Close button ──────────────────────────────────────────────────
+         
             var btnClose = new Button
             {
                 Text = "CLOSE",
