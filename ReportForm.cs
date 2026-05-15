@@ -13,7 +13,7 @@ using System.Windows.Forms;
 namespace ClothingStoreIS
 {
     
-    /// Report Generation Module — DataGrid view + Excel export.
+    /// Report Generation Module 
     public class ReportForm : Form
     {
         private ComboBox cboReport;
@@ -22,7 +22,7 @@ namespace ClothingStoreIS
         private Label lblInfo;
         private Panel pnlToolbar;
 
-        // ── Report definitions ────────────────────────────────────────────────
+       
         private readonly (string Label, string SQL, string ChartColX, string ChartColY)[] Reports =
         {
             (
@@ -161,7 +161,7 @@ namespace ClothingStoreIS
             btnClose.Click += (s, e) => Close();
             pnlToolbar.Controls.Add(btnClose);
 
-            // ── Info strip ────────────────────────────────────────────────────
+           
             lblInfo = new Label
             {
                 Text = "No report loaded yet.",
@@ -175,7 +175,7 @@ namespace ClothingStoreIS
             };
             Controls.Add(lblInfo);
 
-            // ── DataGridView ──────────────────────────────────────────────────
+          
             dgvResult = new DataGridView
             {
                 Dock = DockStyle.Fill,
@@ -208,7 +208,7 @@ namespace ClothingStoreIS
             };
             Controls.Add(dgvResult);
 
-            // Z-order
+          
             Controls.SetChildIndex(dgvResult, 0);
             Controls.SetChildIndex(lblInfo, 1);
             Controls.SetChildIndex(pnlToolbar, 2);
@@ -311,7 +311,7 @@ namespace ClothingStoreIS
                         ws.Cells["A6"].Style.Font.Color.SetColor(Color.Gray);
                         ws.Row(7).Height = 6; // spacer
 
-                        // ── Column headers (row 8) ────────────────────────────
+                       
                         int headerRow = 8;
                         for (int c = 0; c < dt.Columns.Count; c++)
                         {
@@ -326,7 +326,7 @@ namespace ClothingStoreIS
                             cell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         }
 
-                        // ── Data rows ─────────────────────────────────────────
+                      
                         int dataStartRow = headerRow + 1;
                         for (int r = 0; r < dt.Rows.Count; r++)
                         {
@@ -341,10 +341,10 @@ namespace ClothingStoreIS
                                     cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
                                     cell.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 240, 245));
                                 }
-                                // Right-align numbers
+                               
                                 if (val is decimal || val is double || val is int || val is long)
                                     cell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
-                                // Format currency columns
+                             
                                 string colName = dt.Columns[c].ColumnName.ToLower();
                                 if (colName.Contains("amount") || colName.Contains("spent") ||
                                     colName.Contains("revenue") || colName.Contains("price") ||
@@ -356,14 +356,14 @@ namespace ClothingStoreIS
 
                         int lastDataRow = dataStartRow + dt.Rows.Count - 1;
 
-                        // Table border
+                       
                         if (dt.Rows.Count > 0)
                         {
                             var tableRange = ws.Cells[headerRow, 1, lastDataRow, dt.Columns.Count];
                             tableRange.Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.FromArgb(219, 112, 147));
                         }
 
-                        // Auto-fit columns
+                        
                         ws.Cells[ws.Dimension.Address].AutoFitColumns(8, 40);
 
                         // ── Signature block ───────────────────────────────────
@@ -378,7 +378,7 @@ namespace ClothingStoreIS
                         ws.Cells[sigRow + 2, 1, sigRow + 2, 3].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
                         ws.Cells[sigRow + 2, 1, sigRow + 2, 3].Style.Border.Bottom.Color.SetColor(Color.Black);
 
-                        // Approved by block (offset)
+                      
                         int ac = dt.Columns.Count - 2;
                         if (ac < 5) ac = 5;
                         ws.Cells[sigRow, ac].Value = "Approved by:";
@@ -390,7 +390,7 @@ namespace ClothingStoreIS
                         // ══ Sheet 2 — Chart ══════════════════════════════════
                         var wsChart = pkg.Workbook.Worksheets.Add("Chart");
 
-                        // Copy summary columns for chart (ColX label, ColY value)
+                      
                         int xIdx = -1, yIdx = -1;
                         for (int c = 0; c < dt.Columns.Count; c++)
                         {
@@ -449,7 +449,7 @@ namespace ClothingStoreIS
                         }
                         else
                         {
-                            // Fallback: any chart type (EPPlus version difference)
+                            
                             var chartAny = wsChart.Drawings.AddChart("ReportChart", eChartType.BarClustered);
                             chartAny.SetPosition(3, 0, 3, 0);
                             chartAny.SetSize(700, 380);
