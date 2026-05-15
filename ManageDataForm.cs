@@ -63,7 +63,7 @@ namespace ClothingStore
 
         private void InitUI()
         {
-            // Capitalize first letter safely
+          
             string cap = _table.Length > 0
                 ? char.ToUpper(_table[0]) + _table.Substring(1)
                 : _table;
@@ -191,7 +191,7 @@ namespace ClothingStore
             dgv.RowPrePaint += Dgv_RowPrePaint;
             Controls.Add(dgv);
 
-            // Z-order: DockStyle.Fill must be added last / lowest index
+           
             Controls.SetChildIndex(dgv, 0);
             Controls.SetChildIndex(toolbar, 1);
             Controls.SetChildIndex(header, 2);
