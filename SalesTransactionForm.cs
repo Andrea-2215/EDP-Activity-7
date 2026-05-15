@@ -46,7 +46,7 @@ namespace ClothingStoreIS
                 AutoSize = true
             });
 
-            // ── Left panel (input) ────────────────────────────────────────────
+          
             var left = new Panel { Location = new Point(0, 60), Size = new Size(320, 540), BackColor = AppTheme.BgCard };
             Controls.Add(left);
             int y = 16;
@@ -90,7 +90,7 @@ namespace ClothingStoreIS
             lblGrandTotal = new Label { Text = "₱ 0.00", Font = new Font("Segoe UI", 16f, FontStyle.Bold), ForeColor = AppTheme.PrimaryDark, Location = new Point(16, y + 20), AutoSize = true };
             left.Controls.Add(lblGrandTotal);
 
-            // ── Right panel (cart) ────────────────────────────────────────────
+
             var right = new Panel { Location = new Point(320, 60), Size = new Size(614, 480), BackColor = Color.White };
             Controls.Add(right);
             right.Controls.Add(new Label { Text = "Shopping Cart", Font = AppTheme.FontBold, ForeColor = AppTheme.TextDark, Location = new Point(10, 10), AutoSize = true });
@@ -219,7 +219,7 @@ namespace ClothingStoreIS
                         decimal price = Convert.ToDecimal(r["Price"]);
                         decimal sub = price * qty;
 
-                        // Merge if already in cart
+                   
                         foreach (DataRow row in _cartTable.Rows)
                         {
                             if (Convert.ToInt32(row["ProductID"]) == productId)
@@ -304,7 +304,7 @@ namespace ClothingStoreIS
                     }
 
                     tx.Commit();
-                    MessageBox.Show($"✅ Sale posted!\nOrder ID: {orderId}\nTotal: ₱{_grandTotal:N2}",
+                    MessageBox.Show($" Sale posted!\nOrder ID: {orderId}\nTotal: ₱{_grandTotal:N2}",
                         "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ClearCart();
                     LoadCombos();
