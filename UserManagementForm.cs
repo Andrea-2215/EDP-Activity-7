@@ -26,9 +26,7 @@ namespace ClothingStoreIS
             LoadUsers();
         }
 
-        // ─────────────────────────────────────────────────────────────────────
-        // UI Construction
-        // ─────────────────────────────────────────────────────────────────────
+       
         private void InitUI()
         {
             Text            = "User Management";
@@ -216,9 +214,6 @@ namespace ClothingStoreIS
             pnlRight.Controls.SetChildIndex(toolbar, 1);
         }
 
-        // ─────────────────────────────────────────────────────────────────────
-        // Data Operations
-        // ─────────────────────────────────────────────────────────────────────
         private void LoadUsers()
         {
             try
@@ -252,7 +247,7 @@ namespace ClothingStoreIS
             {
                 using (var conn = DatabaseHelper.GetConnection())
                 {
-                    // Check duplicate username
+                   
                     var chk = new MySqlCommand("SELECT COUNT(*) FROM users WHERE Username=@u", conn);
                     chk.Parameters.AddWithValue("@u", txtUsername.Text.Trim());
                     if (Convert.ToInt32(chk.ExecuteScalar()) > 0)
@@ -270,7 +265,7 @@ namespace ClothingStoreIS
                     cmd.ExecuteNonQuery();
                 }
 
-                Msg("✓ User added successfully!", false);
+                Msg(" User added successfully!", false);
                 LoadUsers();
                 ClearForm();
             }
@@ -286,7 +281,7 @@ namespace ClothingStoreIS
             {
                 using (var conn = DatabaseHelper.GetConnection())
                 {
-                    // Check duplicate username (excluding current user)
+                    
                     var chk = new MySqlCommand(
                         "SELECT COUNT(*) FROM users WHERE Username=@u AND UserID<>@id", conn);
                     chk.Parameters.AddWithValue("@u",  txtUsername.Text.Trim());
@@ -324,7 +319,7 @@ namespace ClothingStoreIS
                     cmd.ExecuteNonQuery();
                 }
 
-                Msg("✓ User updated successfully!", false);
+                Msg(" User updated successfully!", false);
                 LoadUsers();
                 ClearForm();
             }
@@ -357,9 +352,7 @@ namespace ClothingStoreIS
             catch (Exception ex) { Msg("DB Error: " + ex.Message, true); }
         }
 
-        // ─────────────────────────────────────────────────────────────────────
-        // Grid Events
-        // ─────────────────────────────────────────────────────────────────────
+        
         private void Dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -388,9 +381,7 @@ namespace ClothingStoreIS
                 e.RowIndex % 2 == 0 ? Color.White : AppTheme.RowAlt;
         }
 
-        // ─────────────────────────────────────────────────────────────────────
-        // Search
-        // ─────────────────────────────────────────────────────────────────────
+      
         private void TxtSearch_Changed(object sender, EventArgs e)
         {
             if (_allData == null) return;
@@ -415,9 +406,7 @@ namespace ClothingStoreIS
             lblCount.Text  = view.Count + " of " + _allData.Rows.Count + " user(s)";
         }
 
-        // ─────────────────────────────────────────────────────────────────────
-        // Helpers
-        // ─────────────────────────────────────────────────────────────────────
+       
         private bool ValidateForm(bool requirePassword)
         {
             lblStatus.Text = "";
@@ -456,7 +445,7 @@ namespace ClothingStoreIS
         private void StyleGrid()
         {
             if (dgv.Columns.Contains("UserID"))
-                dgv.Columns["UserID"].Visible = false;       // hide PK column
+                dgv.Columns["UserID"].Visible = false;     
         }
 
         private void Panel_Paint(object sender, PaintEventArgs e)
@@ -468,7 +457,7 @@ namespace ClothingStoreIS
                 g.DrawRoundedRect(pen, r, 0);
         }
 
-        // ── UI factory helpers ────────────────────────────────────────────────
+      
         private static void AddFormLabel(string text, int y, Panel p)
         {
             p.Controls.Add(new Label
