@@ -15,7 +15,7 @@ namespace ClothingStoreIS
         private DataGridView dgvRecent;
         private Button btnCustomers, btnProducts, btnOrders,
                        btnReports, btnUsers, btnAbout, btnLogout;
-        // ── NEW: transaction buttons ──────────────────────────────────────────
+        // ── transaction buttons ──────────────────────────────────────────
         private Button btnSale, btnRestock, btnReturn;
 
         public DashboardForm()
@@ -61,7 +61,7 @@ namespace ClothingStoreIS
             };
             sidebar.Controls.Add(lblCurrentUser);
 
-            // ── Separator label ───────────────────────────────────────────────
+            // ── Separator label ──────
             int navY = 95;
             SideLabel(sidebar, "── TRANSACTIONS ──", navY); navY += 22;
 
@@ -125,7 +125,7 @@ namespace ClothingStoreIS
             };
             header.Controls.Add(lblTodayDate);
 
-            // ── KPI cards ─────────────────────────────────────────────────────
+           
             var kpiPanel = new Panel { Dock = DockStyle.Top, Height = 110, BackColor = AppTheme.BgLight, Padding = new Padding(16, 10, 16, 0) };
             main.Controls.Add(kpiPanel);
 
@@ -180,14 +180,14 @@ namespace ClothingStoreIS
             };
             main.Controls.Add(dgvRecent);
 
-            // Docking order
+            
             main.Controls.SetChildIndex(dgvRecent, 0);
             main.Controls.SetChildIndex(gridHdr, 1);
             main.Controls.SetChildIndex(kpiPanel, 2);
             main.Controls.SetChildIndex(header, 3);
         }
 
-        // ── KPI card helper ───────────────────────────────────────────────────
+      
         private Label KpiCard(Panel parent, string caption, string value, int x)
         {
             var card = new Panel
@@ -238,7 +238,7 @@ namespace ClothingStoreIS
             });
         }
 
-        // ── Nav button factory ────────────────────────────────────────────────
+        // ── Nav button ────────────────────────────────────────────────
         private Button NavButton(string text, int y)
         {
             var b = new Button
@@ -260,7 +260,7 @@ namespace ClothingStoreIS
             return b;
         }
 
-        // ── Load dashboard stats ──────────────────────────────────────────────
+        // ── Load dashboard ──────────────────────────────────────────────
         private void LoadDashboard()
         {
             lblTodayDate.Text = DateTime.Now.ToString("dddd, MMMM dd, yyyy");
