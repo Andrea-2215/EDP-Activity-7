@@ -122,11 +122,11 @@ namespace ClothingStoreIS
             dgvItems.ColumnHeadersDefaultCellStyle.Font = AppTheme.FontBold;
             dgvItems.ColumnHeadersHeight = 32;
 
-            // ✅ Fix: add to panel first so columns are generated, then hide ProductID
+          
             right.Controls.Add(dgvItems);
             dgvItems.Columns["ProductID"].Visible = false;
 
-            // ✅ Extra safety: keep ProductID hidden on every rebind
+      
             dgvItems.DataBindingComplete += (s, e) =>
             {
                 if (dgvItems.Columns["ProductID"] != null)
@@ -214,7 +214,7 @@ namespace ClothingStoreIS
             decimal cost = nudUnitCost.Value;
             decimal line = cost * qty;
 
-            // Merge if same product
+           
             foreach (DataRow row in _itemsTable.Rows)
             {
                 if (Convert.ToInt32(row["ProductID"]) == pid)
@@ -271,7 +271,7 @@ namespace ClothingStoreIS
                         cmd.ExecuteNonQuery();
                     }
                     tx.Commit();
-                    MessageBox.Show("✅ Restock posted! Stock levels updated.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(" Restock posted! Stock levels updated.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     _itemsTable.Clear();
                     lblTotalCost.Text = "₱ 0.00";
                     LoadCombos();

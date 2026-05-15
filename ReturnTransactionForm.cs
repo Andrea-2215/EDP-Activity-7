@@ -45,7 +45,7 @@ namespace ClothingStoreIS
                 AutoSize = true
             });
 
-            // Step 1 – select order
+          
             var pnlTop = new Panel { Location = new Point(0, 60), Size = new Size(1000, 70), BackColor = AppTheme.BgCard };
             Controls.Add(pnlTop);
             pnlTop.Controls.Add(new Label { Text = "Step 1 — Select Order:", Font = AppTheme.FontBold, ForeColor = AppTheme.TextDark, Location = new Point(16, 24), AutoSize = true });
@@ -58,7 +58,7 @@ namespace ClothingStoreIS
             lblOrderInfo = new Label { Text = "", Font = AppTheme.FontSmall, ForeColor = AppTheme.TextMid, Location = new Point(776, 24), AutoSize = true };
             pnlTop.Controls.Add(lblOrderInfo);
 
-            // Step 2 – order items grid
+        
             var pnlMid = new Panel { Location = new Point(0, 130), Size = new Size(580, 260), BackColor = Color.White };
             Controls.Add(pnlMid);
             pnlMid.Controls.Add(new Label { Text = "Step 2 — Order Items (select a row):", Font = AppTheme.FontBold, ForeColor = AppTheme.TextDark, Location = new Point(10, 8), AutoSize = true });
@@ -66,7 +66,7 @@ namespace ClothingStoreIS
             dgvOrderItems = MkGrid(10, 34, 558, 215);
             pnlMid.Controls.Add(dgvOrderItems);
 
-            // Step 3 – return form
+           
             var pnlRight = new Panel { Location = new Point(580, 130), Size = new Size(420, 260), BackColor = AppTheme.BgCard };
             Controls.Add(pnlRight);
             pnlRight.Controls.Add(new Label { Text = "Step 3 — Return Details:", Font = AppTheme.FontBold, ForeColor = AppTheme.TextDark, Location = new Point(14, 8), AutoSize = true });
@@ -92,8 +92,8 @@ namespace ClothingStoreIS
             btnClose = MkBtn("✕  Close", AppTheme.Danger, 204, 218, 110);
             btnClose.Click += (s, e) => Close();
             pnlRight.Controls.Add(btnClose);
-
-            // Step 4 – recent returns
+            
+            
             var pnlBot = new Panel { Location = new Point(0, 390), Size = new Size(1000, 248), BackColor = Color.White };
             Controls.Add(pnlBot);
             pnlBot.Controls.Add(new Label { Text = "Recent Returns:", Font = AppTheme.FontBold, ForeColor = AppTheme.TextDark, Location = new Point(10, 8), AutoSize = true });
@@ -222,12 +222,12 @@ namespace ClothingStoreIS
                 using (var conn = DatabaseHelper.GetConnection())
                 using (var tx = conn.BeginTransaction())
                 {
-                    // Get ProductID
+                   
                     var cmdPid = new MySqlCommand("SELECT ProductID FROM orderdetails WHERE OrderDetailID=@id", conn, tx);
                     cmdPid.Parameters.AddWithValue("@id", detailId);
                     int productId = Convert.ToInt32(cmdPid.ExecuteScalar());
 
-                    // Insert return record
+                  
                     var cmdR = new MySqlCommand(
                         "INSERT INTO returns (OrderID, OrderDetailID, ProductID, QtyReturned, RefundAmount, Reason, ReturnDate) " +
                         "VALUES (@oid, @did, @pid, @qty, @ref, @rsn, NOW())", conn, tx);
@@ -239,14 +239,14 @@ namespace ClothingStoreIS
                     cmdR.Parameters.AddWithValue("@rsn", txtReason.Text.Trim());
                     cmdR.ExecuteNonQuery();
 
-                    // Restore stock
+                   
                     var cmdS = new MySqlCommand("UPDATE products SET Stock = Stock + @qty WHERE ProductID=@pid", conn, tx);
                     cmdS.Parameters.AddWithValue("@qty", retQty);
                     cmdS.Parameters.AddWithValue("@pid", productId);
                     cmdS.ExecuteNonQuery();
 
                     tx.Commit();
-                    MessageBox.Show($"✅ Return processed!\nQty: {retQty}  |  Refund: ₱{(unitPrice * retQty):N2}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Return processed!\nQty: {retQty}  |  Refund: ₱{(unitPrice * retQty):N2}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     txtReason.Clear();
                     BtnLoadOrder_Click(null, null);
                     LoadRecentReturns();
@@ -269,7 +269,7 @@ namespace ClothingStoreIS
                     dgvReturns.DataSource = dt;
                 }
             }
-            catch { /* table may not exist yet */ }
+            catch { }
         }
     }
 }
