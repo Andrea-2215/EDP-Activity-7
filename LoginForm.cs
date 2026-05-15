@@ -15,7 +15,7 @@ namespace ClothingStoreIS
         private Button btnLogin, btnForgot;
         private CheckBox chkShow;
 
-        // Logged-in user info (accessible after login)
+      
         public static int CurrentUserID { get; private set; }
         public static string CurrentUsername { get; private set; } = "";
         public static string CurrentRole { get; private set; } = "";
@@ -150,7 +150,7 @@ namespace ClothingStoreIS
             AcceptButton = btnLogin;
         }
 
-        // ── Login logic ───────────────────────────────────────────────────────
+        // ── Login ───────────────────────────────────────────────────────
         private void BtnLogin_Click(object sender, EventArgs e)
         {
             lblError.Text = "";
@@ -212,7 +212,7 @@ namespace ClothingStoreIS
             }
         }
 
-        // ── Shake animation ───────────────────────────────────────────────────
+        
         private async void ShakeForm()
         {
             int orig = pnlCard.Left;
@@ -238,7 +238,7 @@ namespace ClothingStoreIS
                 g.DrawRoundedRect(pen, rect, 16);
         }
 
-        // ── UI factory helpers ────────────────────────────────────────────────
+      
         private static Label MakeLabel(string text, int x, int y) => new Label
         {
             Text = text,
@@ -276,7 +276,7 @@ namespace ClothingStoreIS
         }
     }
 
-    // ── Shared Graphics extension helpers (used by all forms) ─────────────────
+   
     internal static class GraphicsExtensions
     {
         public static void DrawRoundedRect(this Graphics g, Pen pen, Rectangle r, int radius)
@@ -291,16 +291,12 @@ namespace ClothingStoreIS
             if (path != null) g.FillPath(brush, path);
         }
 
-        /// <summary>
-        /// Builds a rounded-rectangle GraphicsPath.
-        /// Returns null (instead of throwing) when the rectangle is too small.
-        /// </summary>
+     
         private static GraphicsPath SafeRoundedRect(Rectangle r, int radius)
         {
-            // Guard: rectangle must have positive area
+            
             if (r.Width < 2 || r.Height < 2) return null;
 
-            // Clamp radius so diameter never exceeds the shorter side
             radius = Math.Max(1, Math.Min(radius, Math.Min(r.Width, r.Height) / 2));
             int d = radius * 2;
 
